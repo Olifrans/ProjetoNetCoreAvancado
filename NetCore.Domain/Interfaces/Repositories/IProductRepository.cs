@@ -1,7 +1,6 @@
 ﻿using NetCore.Domain.Models;
 
-namespace NetCore.Domain.Interfaces.Repositories.Interfaces;
-
+namespace NetCore.Domain.Interfaces.Repositories;
 public interface IProductRepository
 {
     Task CreateAsync(ProductModel product);

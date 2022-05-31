@@ -1,8 +1,8 @@
 ﻿using NetCore.Domain.Models;
 
-namespace NetCore.Domain.Interfaces.Repositories.Interfaces;
+namespace NetCore.Domain.Interfaces.Services;
 
-public interface IClientRepository
+public interface IClientService
 {
     Task CreateAsync(ClientModel client);
 
@@ -10,10 +10,8 @@ public interface IClientRepository
 
     Task DeleteAsync(string clientId);
 
-    Task<bool> ExistsByIdAsync(string clientId);
-
     Task<ClientModel> GetByIdAsync(string clientId);
 
     Task<List<ClientModel>> GetListByFilterAsync(string clientId = null, string name = null);
+    
 }
-
