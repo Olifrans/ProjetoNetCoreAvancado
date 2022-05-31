@@ -4,7 +4,7 @@ namespace NetCore.Domain.Validations.Base
 {
     public static class GetValidations
     {
-        public static Response Get(ValidationResult result)
+        public static Response GetErrors(this ValidationResult result)
         {
             var response = new Response();
 
