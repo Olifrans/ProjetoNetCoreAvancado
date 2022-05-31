@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NetCore.Domain.Validations
+namespace NetCore.Domain.Validations.Base
 {
     public class Reports
     {
