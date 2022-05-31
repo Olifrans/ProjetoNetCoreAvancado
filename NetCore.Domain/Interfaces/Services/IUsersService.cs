@@ -1,6 +1,6 @@
 ﻿using NetCore.Domain.Models;
 
-namespace NetCore.Domain.Interfaces.Repositories;
+namespace NetCore.Domain.Interfaces.Services;
 
 public interface IUsersService
 {

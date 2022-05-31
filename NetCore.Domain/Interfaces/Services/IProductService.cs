@@ -1,6 +1,6 @@
 ﻿using NetCore.Domain.Models;
 
-namespace NetCore.Domain.Interfaces.Repositories.Interfaces;
+namespace NetCore.Domain.Interfaces.Services;
 
 public interface IProductService
 {
@@ -13,6 +13,4 @@ public interface IProductService
     Task<ProductModel> GetByIdAsync(string productId);
 
     Task<List<ProductModel>> GetListByFilterAsync(string productId = null, string description = null);
-
-   
 }

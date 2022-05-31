@@ -13,5 +13,4 @@ public interface IClientService
     Task<ClientModel> GetByIdAsync(string clientId);
 
     Task<List<ClientModel>> GetListByFilterAsync(string clientId = null, string name = null);
-    
 }
