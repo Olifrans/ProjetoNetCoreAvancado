@@ -15,4 +15,5 @@ public interface IUsersRepository
     Task<List<UsersModel>> GetListByFilterAsync(string usersId = null, string name = null);
 
     Task<bool> ExistsByIdAsync(string usersId);
+    Task<bool> ExistsByLoginAsync(string login);
 }
