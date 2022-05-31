@@ -8,5 +8,5 @@ Injeção de dependência,
 UnitOfWork,
 
 ## Libs e pacotes
-FluentValidation, JWT, AutoMapper, Dapper, Swagger.
+FluentValidation, JWT, AutoMapper, AutoMapper.Extensions, Dapper, Swagger.
 Dockerf
