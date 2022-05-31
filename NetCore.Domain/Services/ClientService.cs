@@ -24,20 +24,9 @@ public class ClientService : IClientService
         var response = new Response();
 
         var validation = new ClientValidation();
-        var result = validation.Validate(client);
+        FluentValidation.Results.ValidationResult? result = validation.Validate(client);
 
-        if (!result.IsValid)
-        {
-            foreach (var error in result.Errors)
-            {
-                response.Reports.Add(new Reports()
-                {
-                    Code = error.PropertyName,
-                    Message = error.ErrorMessage
-                });
-            }
-            return response;
-        }
+       
 
         await _clientRepository.CreateAsync(client);
         return response;
