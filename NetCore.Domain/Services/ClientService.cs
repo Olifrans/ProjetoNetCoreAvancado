@@ -1,6 +1,7 @@
 ﻿using NetCore.Domain.Interfaces.Repositories;
 using NetCore.Domain.Interfaces.Services;
 using NetCore.Domain.Models;
+using NetCore.Domain.Validations;
 
 namespace NetCore.Domain.Services;
 
@@ -14,8 +15,22 @@ public class ClientService : IClientService
 
 
 
-    public Task CreateAsync(ClientModel client)
+    public async Task CreateAsync(ClientModel client)
     {
+        var validation = new ClientValidation();
+        var result = validation.Validate(client);
+
+        if (!result.IsValid)
+        {
+            foreach (var error in result.Errors)
+            {
+                
+            }    
+        }
+
+
+        _clientRepository.CreateAsync(client);
+
         throw new NotImplementedException();
     }
 
