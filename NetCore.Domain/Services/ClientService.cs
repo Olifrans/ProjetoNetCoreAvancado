@@ -2,6 +2,7 @@
 using NetCore.Domain.Interfaces.Services;
 using NetCore.Domain.Models;
 using NetCore.Domain.Validations;
+using NetCore.Domain.Validations.Base;
 
 namespace NetCore.Domain.Services;
 
@@ -15,8 +16,13 @@ public class ClientService : IClientService
 
 
 
-    public async Task CreateAsync(ClientModel client)
+
+
+
+    async Task<Response> IClientService.CreateAsync(ClientModel client)
     {
+        var response = new Response();
+
         var validation = new ClientValidation();
         var result = validation.Validate(client);
 
@@ -24,32 +30,37 @@ public class ClientService : IClientService
         {
             foreach (var error in result.Errors)
             {
-                
-            }    
+                response.Reports.Add(new Reports()
+                {
+                    Code = error.PropertyName,
+                    Message = error.ErrorMessage
+                });
+            }
+            return response;
         }
 
-
-        _clientRepository.CreateAsync(client);
-
-        throw new NotImplementedException();
+        await _clientRepository.CreateAsync(client);
+        return response;
     }
 
-    public Task DeleteAsync(string clientId)
+
+
+    Task<Response> IClientService.DeleteAsync(string clientId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ClientModel> GetByIdAsync(string clientId)
+    Task<Response<ClientModel>> IClientService.GetByIdAsync(string clientId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<List<ClientModel>> GetListByFilterAsync(string clientId = null, string name = null)
+    Task<Response<List<ClientModel>>> IClientService.GetListByFilterAsync(string clientId, string name)
     {
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(ClientModel client)
+    Task<Response> IClientService.UpdateAsync(ClientModel client)
     {
         throw new NotImplementedException();
     }
