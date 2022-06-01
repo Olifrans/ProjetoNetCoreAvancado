@@ -18,7 +18,7 @@ public class SqlConnector : IDbConnector
 
     public void Dispose()
     {
-        dbConnection.Dispose();
-        dbTransaction.Dispose();
+        dbConnection?.Dispose();
+        dbTransaction?.Dispose();
     }
 }
