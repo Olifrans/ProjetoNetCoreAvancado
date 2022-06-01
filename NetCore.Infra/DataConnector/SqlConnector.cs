@@ -1,21 +1,24 @@
 ﻿using NetCore.Domain.Interfaces.Repositories.DataConnector;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 
-namespace NetCore.Infra.DataConnector
+namespace NetCore.Infra.DataConnector;
+
+public class SqlConnector : IDbConnector
 {
-    public class SqlConnector : IDbConnector
+    public SqlConnector(string connectionString)
     {
-        public IDbConnection bdConnection { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public IDbTransaction dbTransaction { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        dbConnection = SqlClientFactory.Instance.CreateConnection();
+        dbConnection.ConnectionString = connectionString;
+    }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
+    public IDbConnection dbConnection { get; }
+
+    public IDbTransaction dbTransaction { get; private set; }
+
+    public void Dispose()
+    {
+        dbConnection.Dispose();
+        dbTransaction.Dispose();
     }
 }

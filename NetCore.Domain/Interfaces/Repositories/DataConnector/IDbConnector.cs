@@ -4,6 +4,6 @@ namespace NetCore.Domain.Interfaces.Repositories.DataConnector;
 
 public interface IDbConnector : IDisposable
 {
-    IDbConnection bdConnection { get; set; }
-    IDbTransaction dbTransaction { get; set; }
+    IDbConnection dbConnection { get; }
+    IDbTransaction dbTransaction { get; }
 }

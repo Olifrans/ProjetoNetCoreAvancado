@@ -1,9 +1,4 @@
 ﻿using NetCore.Domain.Interfaces.Repositories.DataConnector;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetCore.Domain.Interfaces.Repositories
 {
@@ -17,15 +12,11 @@ namespace NetCore.Domain.Interfaces.Repositories
         IDbConnector dbConnector { get; set; }
 
         void BeginTransaction();
+
         void CommitTransaction();
+
         void RollbackTransaction();
 
         //void CloseTransaction();
-
-       
-
-
     }
 }
-
-
