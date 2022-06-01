@@ -8,5 +8,14 @@ Injeção de dependência,
 UnitOfWork,
 
 ## Libs e pacotes
-FluentValidation, JWT, AutoMapper, Dapper, Swagger.
+FluentValidation, JWT, AutoMapper, AutoMapper.Extensions, Dapper, Swagger.
 Dockerf
+
+### Padrão UnitOfWork
+Concentrando todos dominios em um unico lugar para manter a consistencia de dados e concorrencia de BD
+facilitando teste de integração
+
+### Para Persitência de dados BD usei o Dapper
+
+Continua aula no inicio
+https://www.youtube.com/watch?v=cVOOYl9cxS8&list=PLTy6F1LNIRHcuFRBO_QQ6oWbOozkNz8fa&index=9
