@@ -23,27 +23,81 @@ namespace NetCore.Infra.Repositories
                                   FROM[dbo].[Client]
                                   WHERE 1 = 1";
 
-        public Task CreateAsync(ClientModel client)
+
+
+
+
+
+
+        //ok Post
+        public async Task CreateAsync(ClientModel client)
         {
-            string sql = $"{baseSql} AND Id =  @Id";
+            string sql = @$"INSERT INTO [dbo].[Client]
+                                   ([Id]
+                                   ,[Name]
+                                   ,[Email]
+                                   ,[PhoneNumber]
+                                   ,[Adress]
+                                   ,[CreatedAt])
+                             VALUES
+                                   (@Id
+                                   ,@Name
+                                   ,@Email
+                                   ,@PhoneNumber
+                                   ,@Adress
+                                   ,@CreatedAt)";
 
-            var clients = await _dbConnector.dbConnection.Execute<ClientModel>(sql, new { Id = clientId });
-
-            return clients.FirstOrDefault();
+            await _dbConnector.dbConnection.ExecuteAsync(sql, new
+            {
+                Id = client.Id,
+                Name = client.Name,
+                Email = client.Email,
+                PhoneNumber = client.PhoneNumber,
+                Adress = client.Adress,
+                CreatedAt = client.CreatedAt,
+            }, _dbConnector.dbTransaction);
         }
 
+
+
+
+
+
+        //ok Update
+        public async Task UpdateAsync(ClientModel client)
+        {
+            string sql = @$"UPDATE [dbo].[Client]
+                               SET [Name] = @Name
+                                  ,[Email] = @Email
+                                  ,[PhoneNumber] = @PhoneNumber
+                                  ,[Adress] = @Adress
+                             WHERE Id = @Id";
+
+            await _dbConnector.dbConnection.ExecuteAsync(sql, new
+            {
+                Id = client.Id,
+                Name = client.Name,
+                Email = client.Email,
+                PhoneNumber = client.PhoneNumber,
+                Adress = client.Adress,
+            }, _dbConnector.dbTransaction);
+        }
+
+
+
+
+        //ok Delete
         public async Task DeleteAsync(string clientId)
         {
-            string sql = $"{baseSql} AND Id =  @Id";
+            string sql = $" DELETE FROM[dbo].[Client] WHERE Id = @Id";
 
-            var clients = await _dbConnector.dbConnection.Execute<ClientModel>(sql, new { Id = clientId });
-
-            return clients.FirstOrDefault();
+           await _dbConnector.dbConnection.ExecuteAsync(sql, new { Id = clientId }, _dbConnector.dbTransaction);
         }
 
 
 
-        //ok
+
+        //ok GetExistId
         public async Task<bool> ExistsByIdAsync(string clientId)
         {
             string sql = $"SELECT 1 FROM Client WHERE Id = @Id";
@@ -53,7 +107,7 @@ namespace NetCore.Infra.Repositories
             return clients.FirstOrDefault();
         }
 
-        //ok
+        //ok GetId
         public async Task<ClientModel> GetByIdAsync(string clientId)
         {
             string sql = $"{baseSql} AND Id =  @Id";
@@ -63,7 +117,7 @@ namespace NetCore.Infra.Repositories
             return clients.FirstOrDefault();
         }
 
-        //ok
+        //ok GetAll
         public async Task<List<ClientModel>> GetListByFilterAsync(string clientId = null, string name = null)
         {
             string sql = $"{baseSql} ";
@@ -82,11 +136,5 @@ namespace NetCore.Infra.Repositories
 
 
 
-
-
-        public Task UpdateAsync(ClientModel client)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
