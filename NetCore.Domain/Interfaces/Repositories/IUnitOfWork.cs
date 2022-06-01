@@ -9,7 +9,7 @@ namespace NetCore.Domain.Interfaces.Repositories
         IProductRepository ProductRepository { get; }
         IUsersRepository UsersRepository { get; }
 
-        IDbConnector dbConnector { get; set; }
+        IDbConnector dbConnector { get; }
 
         void BeginTransaction();
 

@@ -7,17 +7,26 @@ namespace NetCore.Infra.Repositories;
 public class UnitOfWork : IUnitOfWork
 {
     private IClientRepository _clientRepository;
+    private IProductRepository _productRepository;
+    private IOrdersRepository _ordersRepository;
+    private IUsersRepository _usersRepository;
 
-    public IClientRepository ClientRepository => _clientRepository ?? (_clientRepository = new ClientRepository(dbConnector.dbConnection));
+    public UnitOfWork(IDbConnector dbConnector)
+    {
+        this.dbConnector = dbConnector;
+    }
+
+    public IClientRepository ClientRepository => _clientRepository ?? (_clientRepository = new ClientRepository(dbConnector));
+
+    public IOrdersRepository OrdersRepository => _ordersRepository ?? (_ordersRepository = new OrdersRepository(dbConnector));
+
+    public IProductRepository ProductRepository => _productRepository ?? (_productRepository = new ProductRepository(dbConnector));
+
+    public IUsersRepository UsersRepository => _usersRepository ?? (_usersRepository = new UsersRepository(dbConnector));
 
 
-    public IOrdersRepository OrdersRepository => throw new NotImplementedException();
+    public IDbConnector dbConnector { get; }
 
-    public IProductRepository ProductRepository => throw new NotImplementedException();
-
-    public IUsersRepository UsersRepository => throw new NotImplementedException();
-
-    public IDbConnector dbConnector { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
     public void BeginTransaction()
     {
