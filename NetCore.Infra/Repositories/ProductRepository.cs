@@ -1,4 +1,5 @@
-﻿using NetCore.Domain.Interfaces.Repositories;
+﻿using Dapper;
+using NetCore.Domain.Interfaces.Repositories;
 using NetCore.Domain.Interfaces.Repositories.DataConnector;
 using NetCore.Domain.Models;
 
@@ -13,105 +14,99 @@ namespace NetCore.Infra.Repositories
             this._dbConnector = dbConnector;
         }
 
-        public Task CreateAsync(ProductModel product)
+        private const string baseSql = @"SELECT [Id]
+                                       ,[Name]
+                                       ,[Email]
+                                       ,[PhoneNumber]
+                                       ,[Adress]
+                                       ,[CreatedAt])
+                                  FROM [dbo].[Product]
+                                  WHERE 1 = 1";
+
+        //ok
+        public async Task CreateAsync(ProductModel product)
         {
-            throw new NotImplementedException();
+            string sql = @"INSERT INTO [dbo].[Product]
+                                       ([Id]
+                                       ,[Description]
+                                       ,[SelValue]
+                                       ,[Stock]
+                                       ,[CreatedAt])
+                                 VALUES
+                                       (@Id
+                                       ,@Description
+                                       ,@SelValue
+                                       ,@Stock
+                                       ,@CreatedAt)";
+
+            await _dbConnector.dbConnection.ExecuteAsync(sql, new
+            {
+                Id = product.Id,
+                Description = product.Description,
+                SelValue = product.SelValue,
+                Stock = product.Stock,
+                CreatedAt = product.CreatedAt,
+            }, _dbConnector.dbTransaction);
         }
 
-        public Task DeleteAsync(string productId)
+        //ok
+        public async Task DeleteAsync(string productId)
         {
-            throw new NotImplementedException();
+            string sql = $"DELETE FROM [dbo].[Product] WHERE id = @id";
+
+            await _dbConnector.dbConnection.ExecuteAsync(sql, new { Id = productId }, _dbConnector.dbTransaction);
         }
 
-        public Task<bool> ExistsByIdAsync(string productId)
+        //ok
+        public async Task<bool> ExistsByIdAsync(string productId)
         {
-            throw new NotImplementedException();
+            string sql = $"SELECT 1 FROM Product WHERE Id = @Id ";
+
+            var Products = await _dbConnector.dbConnection.QueryAsync<bool>(sql, new { Id = productId }, _dbConnector.dbTransaction);
+
+            return Products.FirstOrDefault();
         }
 
-        public Task<ProductModel> GetByIdAsync(string productId)
+        //ok
+        public async Task<ProductModel> GetByIdAsync(string productId)
         {
-            throw new NotImplementedException();
+            string sql = $"{baseSql} AND Id = @Id";
+
+            var Products = await _dbConnector.dbConnection.QueryAsync<ProductModel>(sql, new { Id = productId }, _dbConnector.dbTransaction);
+
+            return Products.FirstOrDefault();
         }
 
-        public Task<List<ProductModel>> GetListByFilterAsync(string productId = null, string description = null)
+        public async Task<List<ProductModel>> GetListByFilterAsync(string productId = null, string name = null)
         {
-            throw new NotImplementedException();
+            string sql = $"{baseSql} ";
+
+            if (!string.IsNullOrWhiteSpace(productId))
+                sql += "AND Id = @Id";
+
+            if (!string.IsNullOrWhiteSpace(name))
+                sql += "AND Description like @Name";
+
+            var products = await _dbConnector.dbConnection.QueryAsync<ProductModel>(sql, new { Id = productId, Name = "%" + name + "%" }, _dbConnector.dbTransaction);
+
+            return products.ToList();
         }
 
-        public Task UpdateAsync(ProductModel product)
+        public async Task UpdateAsync(ProductModel product)
         {
-            throw new NotImplementedException();
+            string sql = @"UPDATE [dbo].[Product]
+                               SET [Description] = @Description
+                                  ,[SellValue] = @SellValue
+                                  ,[Stock] = @Stock
+                           WHERE Id = @Id";
+
+            await _dbConnector.dbConnection.ExecuteAsync(sql, new
+            {
+                Id = product.Id,
+                Description = product.Description,
+                SelValue = product.SelValue,
+                Stock = product.Stock
+            }, _dbConnector.dbTransaction);
         }
-
-
-
-
-        //private const string baseSql = @"SELECT [Id]
-        //                              ,[Name]
-        //                              ,[Email]
-        //                              ,[PhoneNumber]
-        //                              ,[Adress]
-        //                              ,[CreatedAt]
-        //                          FROM[dbo].[Client]
-        //                          WHERE 1 = 1";
-
-        //public Task CreateAsync(ClientModel client)
-        //{
-        //    string sql = $"{baseSql} AND Id =  @Id";
-
-        //    var clients = await _dbConnector.dbConnection.Execute<ClientModel>(sql, new { Id = clientId });
-
-        //    return clients.FirstOrDefault();
-        //}
-
-        //public async Task DeleteAsync(string clientId)
-        //{
-        //    string sql = $"{baseSql} AND Id =  @Id";
-
-        //    var clients = await _dbConnector.dbConnection.Execute<ClientModel>(sql, new { Id = clientId });
-
-        //    return clients.FirstOrDefault();
-        //}
-
-        ////ok
-        //public async Task<bool> ExistsByIdAsync(string clientId)
-        //{
-        //    string sql = $"SELECT 1 FROM Client WHERE Id = @Id";
-
-        //    var clients = await _dbConnector.dbConnection.QueryAsync<bool>(sql, new { Id = clientId }, _dbConnector.dbTransaction);
-
-        //    return clients.FirstOrDefault();
-        //}
-
-        ////ok
-        //public async Task<ClientModel> GetByIdAsync(string clientId)
-        //{
-        //    string sql = $"{baseSql} AND Id =  @Id";
-
-        //    var clients = await _dbConnector.dbConnection.QueryAsync<ClientModel>(sql, new { Id = clientId }, _dbConnector.dbTransaction);
-
-        //    return clients.FirstOrDefault();
-        //}
-
-        ////ok
-        //public async Task<List<ClientModel>> GetListByFilterAsync(string clientId = null, string name = null)
-        //{
-        //    string sql = $"{baseSql} ";
-
-        //    if (string.IsNullOrWhiteSpace(clientId))
-        //        sql += "AND Id =  @Id";
-
-        //    if (string.IsNullOrWhiteSpace(name))
-        //        sql += "AND Name like  @Name";
-
-        //    var clients = await _dbConnector.dbConnection.QueryAsync<ClientModel>(sql, new { Id = clientId, Name = "%" + name + "%" }, _dbConnector.dbTransaction);
-
-        //    return clients.ToList();
-        //}
-
-        //public Task UpdateAsync(ClientModel client)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

@@ -10,7 +10,7 @@ public interface IOrdersRepository
 
     Task UpdateAsync(OrdersModel orders);
 
-    Task UpdateItemAsync(OrderItemModel item);
+    //Task UpdateItemAsync(OrderItemModel item);
 
     Task DeleteAsync(string ordersId);
 

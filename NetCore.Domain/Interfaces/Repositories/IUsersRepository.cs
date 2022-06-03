@@ -9,10 +9,14 @@ public interface IUsersRepository
 
     Task DeleteAsync(string usersId);
 
+
     Task<UsersModel> GetByIdAsync(string usersId);
 
-    Task<List<UsersModel>> GetListByFilterAsync(string usersId = null, string name = null);
+    Task<UsersModel> GetByLoginAsync(string login);
+
+    Task<List<UsersModel>> GetListByFilterAsync(string usersId = null, string name = null);   
 
     Task<bool> ExistsByIdAsync(string usersId);
     Task<bool> ExistsByLoginAsync(string login);
+
 }

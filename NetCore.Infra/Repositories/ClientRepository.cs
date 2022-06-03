@@ -8,7 +8,6 @@ namespace NetCore.Infra.Repositories
     public class ClientRepository : IClientRepository
     {
         private readonly IDbConnector _dbConnector;
-
         public ClientRepository(IDbConnector dbConnector)
         {
             this._dbConnector = dbConnector;
@@ -22,10 +21,6 @@ namespace NetCore.Infra.Repositories
                                       ,[CreatedAt]
                                   FROM[dbo].[Client]
                                   WHERE 1 = 1";
-
-
-
-
 
 
 
@@ -60,9 +55,6 @@ namespace NetCore.Infra.Repositories
 
 
 
-
-
-
         //ok Update
         public async Task UpdateAsync(ClientModel client)
         {
@@ -85,15 +77,13 @@ namespace NetCore.Infra.Repositories
 
 
 
-
         //ok Delete
         public async Task DeleteAsync(string clientId)
         {
             string sql = $" DELETE FROM[dbo].[Client] WHERE Id = @Id";
 
-           await _dbConnector.dbConnection.ExecuteAsync(sql, new { Id = clientId }, _dbConnector.dbTransaction);
+            await _dbConnector.dbConnection.ExecuteAsync(sql, new { Id = clientId }, _dbConnector.dbTransaction);
         }
-
 
 
 
@@ -107,6 +97,8 @@ namespace NetCore.Infra.Repositories
             return clients.FirstOrDefault();
         }
 
+
+
         //ok GetId
         public async Task<ClientModel> GetByIdAsync(string clientId)
         {
@@ -116,6 +108,8 @@ namespace NetCore.Infra.Repositories
 
             return clients.FirstOrDefault();
         }
+
+
 
         //ok GetAll
         public async Task<List<ClientModel>> GetListByFilterAsync(string clientId = null, string name = null)
@@ -132,9 +126,5 @@ namespace NetCore.Infra.Repositories
 
             return clients.ToList();
         }
-
-
-
-
     }
 }

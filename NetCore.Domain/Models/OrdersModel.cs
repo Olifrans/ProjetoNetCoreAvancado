@@ -2,7 +2,7 @@
 
 public class OrdersModel : EntityBase
 {
-    public ClientModel Client { get; set; }
-    public UsersModel Users { get; set; }
-    public List<OrderItemModel> Items { get; set; }
+    public ClientModel? Client { get; set; }
+    public UsersModel? Users { get; set; }
+    public List<OrderItemModel>? Items { get; set; }
 }

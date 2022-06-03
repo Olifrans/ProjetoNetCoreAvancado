@@ -16,9 +16,7 @@ public class Core : Profile
     public Core()
     {
         ClientMap();
-        OrdersMap();
-        ProductMap();
-        UsersMap();
+
     }
 
     private void ClientMap()
@@ -28,24 +26,5 @@ public class Core : Profile
         CreateMap<ClientModel, ClientResponse>();
     }
 
-    private void OrdersMap()
-    {
-        CreateMap<CreateOrdersRequest, OrdersModel>();
-
-        CreateMap<OrdersModel, OrdersResponse>();
-    }
-
-    private void ProductMap()
-    {
-        CreateMap<CreateProductRequest, ProductModel>();
-
-        CreateMap<ProductModel, ProductResponse>();
-    }
-
-    private void UsersMap()
-    {
-        CreateMap<CreateUsersRequest, UsersModel>();
-
-        CreateMap<UsersModel, UsersResponse>();
-    }
+   
 }

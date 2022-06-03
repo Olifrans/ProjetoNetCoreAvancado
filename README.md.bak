@@ -8,16 +8,17 @@ Injeção de dependência,
 UnitOfWork,
 
 ## Libs e pacotes
-FluentValidation, JWT, AutoMapper, AutoMapper.Extensions, Dapper, Swagger.
+FluentValidation, JWT, AutoMapper, AutoMapper.Extensions, Dapper, Dapper.Contrib, Swagger.
 Dockerf
 
-### Padrão UnitOfWork
+### Padrão UnitOfWork nos Repositories  - Para ter Controle de transações no BD
 Concentrando todos dominios em um unico lugar para manter a consistencia de dados e concorrencia de BD
 facilitando teste de integração
 
 ### Para Persitência de dados BD usei o Dapper
 Obs: O Dapper não tem unidade de trabalho único (Controle de transações no BD), diferente dos demais.
 Ex:
+https://dapper-tutorial.net/
 
 Tabelas: 
 Order 
