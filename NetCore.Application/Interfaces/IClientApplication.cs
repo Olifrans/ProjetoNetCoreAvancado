@@ -1,4 +1,6 @@
 ﻿using NetCore.Application.DataContract.Request.Client;
+using NetCore.Application.DataContract.Response.Client;
+using NetCore.Domain.Models;
 using NetCore.Domain.Validations.Base;
 
 namespace NetCore.Application.Interfaces;
@@ -12,8 +14,8 @@ public interface IClientApplication
     Task<Response> GetByIdAsync(string clientId);
     //Task<Response<ClientModel>> GetByIdAsync(string clientId);
 
-    Task<Response> GetListByFilterAsync(string clientId, string name);
-    //Task<Response<List<ClientModel>>> GetListByFilterAsync(string clientId, string name);
+    //Task<Response> GetListByFilterAsync(string clientId, string name);
+    Task<Response<List<ClientResponse>>> GetListByFilterAsync(string clientId, string name);
 
     Task<Response> UpdateAsync(ClientModel client);
 }

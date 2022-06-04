@@ -2,6 +2,8 @@
 using NetCore.Application.DataContract.Request.Client;
 using NetCore.Application.Interfaces;
 
+
+
 namespace NetCore.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -15,44 +17,97 @@ namespace NetCore.Api.Controllers
         }
 
 
-
         // GET: api/<ClientController>
+        /// <summary>
+        /// Get
+        /// </summary>
+        /// <param name="clientid"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult> Get([FromBody] string clientid, [FromBody] string name)
         {
-            return new string[] { "value1", "value2" };
-        }
+            var response = await _clientApplication.GetListByFilterAsync(clientid, name);
 
-        // GET api/<ClientController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<ClientController>
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CreateClientRequest clientRequest)
-        {
-            var response = await _clientApplication.CreateAsync(clientRequest);
-
-            if(response.Reports.Any())
+            if (response.Reports.Any())
                 return UnprocessableEntity(response.Reports);
 
-            //return Created();
             return Ok(response);
         }
 
-        // PUT api/<ClientController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // GET api/<ClientController>/5
+        /// <summary>
+        /// Get Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult> Get(string id)
         {
+            var response = await _clientApplication.GetByIdAsync(id);
+
+            if (response.Reports.Any())
+                return UnprocessableEntity(response.Reports);
+
+            return Ok(response);
+        }
+
+
+
+
+        // POST api/<ClientController>
+        /// <summary>
+        /// Post
+        /// </summary>
+        /// <param name="clientRequest"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] CreateClientRequest createClientRequest)
+        {
+            var response = await _clientApplication.CreateAsync(createClientRequest);
+
+            if (response.Reports.Any())
+                return UnprocessableEntity(response.Reports);
+
+            return Ok(response);
+        }
+
+
+
+
+        // PUT api/<ClientController>/5
+        /// <summary>
+        /// Put
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updateClientRequest"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Put(int id, [FromBody] UpdateClientRequest updateClientRequest)
+        {
+            var response = await _clientApplication.UpdateAsync(updateClientRequest);
+
+            if (response.Reports.Any())
+                return UnprocessableEntity(response.Reports);
+
+            return Ok(response);
         }
 
         // DELETE api/<ClientController>/5
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult> Delete(string id)
         {
+            var response = await _clientApplication.DeleteAsync(id);
+
+            if (response.Reports.Any())
+                return UnprocessableEntity(response.Reports);
+
+            return Ok(response);
         }
     }
 }

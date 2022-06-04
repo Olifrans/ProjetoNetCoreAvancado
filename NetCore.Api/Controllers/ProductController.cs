@@ -28,18 +28,18 @@ namespace NetCore.Api.Controllers
             return "value";
         }
 
-        // POST api/<ProductController>
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CreateProductRequest productRequest)
-        {
-            var response = await _productApplication.CreateAsync(productRequest);
+        //// POST api/<ProductController>
+        //[HttpPost]
+        //public async Task<ActionResult> Post([FromBody] CreateProductRequest productRequest)
+        //{
+        //    var response = await _productApplication.CreateAsync(productRequest);
 
-            if (response.Reports.Any())
-                return UnprocessableEntity(response.Reports);
+        //    if (response.Reports.Any())
+        //        return UnprocessableEntity(response.Reports);
 
-            //return Created();
-            return Ok(response);
-        }
+        //    //return Created();
+        //    return Ok(response);
+        //}
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]

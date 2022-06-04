@@ -1,27 +1,14 @@
-﻿using NetCore.Application.DataContract.Request.Client;
+﻿using NetCore.Application.DataContract.Request.Users;
+using NetCore.Application.DataContract.Response.Users;
 using NetCore.Domain.Validations.Base;
 
 namespace NetCore.Application.Interfaces;
 
 public interface IUsersApplication
+{
+    Task<Response<AuthResponse>> AuthAsync(AuthRequest auth);
 
+    Task<Response> CreateAsync(CreateUsersRequest User);
 
-    Task<bool> AutheticationAsync(UsersModel users)
-    
-
-    Task CreateAsync(UsersModel users)
-    
-
-    Task DeleteAsync(string clientId)
-    
-
-    Task<UsersModel> GetByIdAsync(string usersId)
-   
-
-    Task<List<UsersModel>> GetListByFilterAsync(string usersId = null, string name = null)
-   
-
-    Task UpdateAsync(UsersModel users)
-   
-
+    Task<Response<List<UsersResponse>>> ListByFilterAsync(string userId = null, string name = null);
 }

@@ -9,13 +9,13 @@ namespace NetCore.Domain.Services;
 public class ClientService : IClientService
 {
     private readonly IClientRepository _clientRepository;
-
     public ClientService(IClientRepository clientRepository)
     {
         this._clientRepository = clientRepository;
     }
 
-    async Task<Response> IClientService.CreateAsync(ClientModel client)
+    public async Task<Response> CreateAsync(ClientModel client)
+    //public async Task<Response> IClientService.CreateAsync(ClientModel client)
     {
         var response = new Response();
 
@@ -29,7 +29,8 @@ public class ClientService : IClientService
         return response;
     }
 
-    async Task<Response> IClientService.DeleteAsync(string clientId)
+    public async Task<Response> DeleteAsync(string clientId)
+    //public async Task<Response> IClientService.DeleteAsync(string clientId)
     {
         var response = new Response();
 
@@ -45,7 +46,8 @@ public class ClientService : IClientService
         return response;
     }
 
-    async Task<Response<ClientModel>> IClientService.GetByIdAsync(string clientId)
+    public async Task<Response<ClientModel>> GetByIdAsync(string clientId)
+    //public async Task<Response<ClientModel>> IClientService.GetByIdAsync(string clientId)
     {
         var response = new Response<ClientModel>();
 
@@ -61,7 +63,8 @@ public class ClientService : IClientService
         return response;
     }
 
-    async Task<Response<List<ClientModel>>> IClientService.GetListByFilterAsync(string clientId, string name)
+    public async Task<Response<List<ClientModel>>> GetListByFilterAsync(string clientId = null, string name = null)
+    //async Task<Response<List<ClientModel>>> IClientService.GetListByFilterAsync(string clientId = null, string name = null)
     {
         var response = new Response<List<ClientModel>>();
 
@@ -81,7 +84,8 @@ public class ClientService : IClientService
         return response;
     }
 
-    async Task<Response> IClientService.UpdateAsync(ClientModel client)
+    public async Task<Response> UpdateAsync(ClientModel client)
+    //public async Task<Response> IClientService.UpdateAsync(ClientModel client)
     {
         var response = new Response();
 

@@ -12,10 +12,34 @@ public class ProductApplication : IProductApplication
     private readonly IProductService _productService;
     private readonly IMapper _mapper;
 
-
-    public async Task<Response> CreateAsync(CreateClientRequest clientRequest)
+    public ProductApplication(IProductService productService, IMapper mapper)
     {
-        var clientModel = _mapper.Map<ClientModel>(clientRequest);
-        return await _clientService.CreateAsync(clientModel);
+        _productService = productService;
+        _mapper = mapper;
+    }
+
+    public Task CreateAsync(ProductModel product)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task DeleteAsync(string productId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ProductModel> GetByIdAsync(string productId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<ProductModel>> GetListByFilterAsync(string productId = null, string description = null)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task UpdateAsync(ProductModel product)
+    {
+        throw new NotImplementedException();
     }
 }

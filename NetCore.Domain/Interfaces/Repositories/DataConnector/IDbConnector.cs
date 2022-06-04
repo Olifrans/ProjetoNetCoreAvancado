@@ -1,9 +1,18 @@
-﻿using System.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace NetCore.Domain.Interfaces.Repositories.DataConnector;
-
-public interface IDbConnector : IDisposable
+namespace NetCore.Domain.Interfaces.Repositories.DataConnector
 {
-    IDbConnection dbConnection { get; }
-    IDbTransaction dbTransaction { get; set; }
+    public interface IDbConnector : IDisposable
+    {
+        IDbConnection dbConnection { get; }
+        IDbTransaction dbTransaction { get; set; }
+
+        IDbTransaction BeginTransaction(IsolationLevel isolation);
+
+    }
 }
