@@ -1,13 +1,13 @@
 ﻿using NetCore.Domain.Common;
 using NetCore.Domain.Interfaces.Repositories;
-using NetCore.Domain.Interfaces.Services;
+using NetCore.Domain.Interfaces.Service;
 using NetCore.Domain.Models;
 using NetCore.Domain.Validations;
 using NetCore.Domain.Validations.Base;
 
 namespace NetCore.Domain.Services;
 
-public class ClientService : IClientService
+public class ClientService : IClientsService
 {
 
     private readonly IClientRepository _clientRepository;
@@ -22,6 +22,7 @@ public class ClientService : IClientService
 
     
 
+    //ok
     public async Task<Response> CreateAsync(ClientModel client)
     {
         var response = new Response();

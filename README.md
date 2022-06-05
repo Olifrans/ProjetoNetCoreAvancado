@@ -19,16 +19,3 @@ facilitando teste de integração
 Obs: O Dapper não tem unidade de trabalho único (Controle de transações no BD), diferente dos demais.
 Ex:
 https://dapper-tutorial.net/
-
-Tabelas: 
-Order 
-OrderItem
- 
-OrderItem -> OrderId
-OrderItem2 -> OrderId
-OrderItem3 -> OrderId
-
-
-
-Proxima aula inicio posição 2:20
-https://www.youtube.com/watch?v=GUBFUNoQjfE&list=PLTy6F1LNIRHcuFRBO_QQ6oWbOozkNz8fa&index=16

@@ -4,7 +4,12 @@ using NetCore.Application.Mapper;
 using NetCore.Domain.Common;
 using NetCore.Domain.Interfaces.Repositories;
 using NetCore.Domain.Interfaces.Repositories.DataConnector;
+using NetCore.Domain.Interfaces.Service;
 using NetCore.Domain.Services;
+//using NetCore.Domain.Services;
+//using NetCore.Domain.Interfaces.Service;
+
+
 using NetCore.Infra.DataConnector;
 using NetCore.Infra.Repositories;
 
@@ -36,7 +41,7 @@ builder.Services.AddScoped<IGeneretors, Generetors>();
 builder.Services.AddScoped<ITimeProvider, TimeProvider>();
 
 builder.Services.AddScoped<IClientApplication, ClientApplication>();
-builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IClientsService, ClientService>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 

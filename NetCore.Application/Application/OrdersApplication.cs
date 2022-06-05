@@ -3,7 +3,7 @@ using NetCore.Application.DataContract.Request.Client;
 using NetCore.Application.DataContract.Request.Orders;
 using NetCore.Application.DataContract.Response.Orders;
 using NetCore.Application.Interfaces;
-using NetCore.Domain.Interfaces.Services;
+using NetCore.Domain.Interfaces.Service;
 using NetCore.Domain.Models;
 using NetCore.Domain.Validations.Base;
 

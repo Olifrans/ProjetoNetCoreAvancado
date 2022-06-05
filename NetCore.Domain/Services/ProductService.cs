@@ -1,5 +1,5 @@
 ﻿using NetCore.Domain.Interfaces.Repositories;
-using NetCore.Domain.Interfaces.Services;
+using NetCore.Domain.Interfaces.Service;
 using NetCore.Domain.Models;
 
 namespace NetCore.Domain.Services;
