@@ -1,4 +1,5 @@
-﻿using NetCore.Domain.Interfaces.Repositories;
+﻿using NetCore.Domain.Common;
+using NetCore.Domain.Interfaces.Repositories;
 using NetCore.Domain.Interfaces.Services;
 using NetCore.Domain.Models;
 using NetCore.Domain.Validations;
@@ -8,14 +9,20 @@ namespace NetCore.Domain.Services;
 
 public class ClientService : IClientService
 {
+
     private readonly IClientRepository _clientRepository;
-    public ClientService(IClientRepository clientRepository)
+    private readonly IGeneretors _generetors;
+    private readonly ITimeProvider _timeProvider;
+    public ClientService(IClientRepository clientRepository, IGeneretors generetors, ITimeProvider timeProvider)
     {
         this._clientRepository = clientRepository;
+        this._generetors = generetors;
+        this._timeProvider = timeProvider;
     }
 
+    
+
     public async Task<Response> CreateAsync(ClientModel client)
-    //public async Task<Response> IClientService.CreateAsync(ClientModel client)
     {
         var response = new Response();
 
@@ -25,12 +32,16 @@ public class ClientService : IClientService
         if (errors.Reports.Count > 0)
             return errors;
 
+        client.Id = _generetors.Generate();
+        client.CreatedAt = _timeProvider.utcDateTime();
+
         await _clientRepository.CreateAsync(client);
         return response;
     }
 
+
+
     public async Task<Response> DeleteAsync(string clientId)
-    //public async Task<Response> IClientService.DeleteAsync(string clientId)
     {
         var response = new Response();
 
@@ -46,8 +57,7 @@ public class ClientService : IClientService
         return response;
     }
 
-    public async Task<Response<ClientModel>> GetByIdAsync(string clientId)
-    //public async Task<Response<ClientModel>> IClientService.GetByIdAsync(string clientId)
+    public async Task<Response<ClientModel>> GetByIdAsync(string clientId)    
     {
         var response = new Response<ClientModel>();
 
@@ -63,8 +73,7 @@ public class ClientService : IClientService
         return response;
     }
 
-    public async Task<Response<List<ClientModel>>> GetListByFilterAsync(string clientId = null, string name = null)
-    //async Task<Response<List<ClientModel>>> IClientService.GetListByFilterAsync(string clientId = null, string name = null)
+    public async Task<Response<List<ClientModel>>> GetListByFilterAsync(string clientId = null, string name = null)   
     {
         var response = new Response<List<ClientModel>>();
 
@@ -84,8 +93,7 @@ public class ClientService : IClientService
         return response;
     }
 
-    public async Task<Response> UpdateAsync(ClientModel client)
-    //public async Task<Response> IClientService.UpdateAsync(ClientModel client)
+    public async Task<Response> UpdateAsync(ClientModel client)    
     {
         var response = new Response();
 

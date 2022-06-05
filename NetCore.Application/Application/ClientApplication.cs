@@ -5,6 +5,7 @@ using NetCore.Application.Interfaces;
 using NetCore.Domain.Interfaces.Services;
 using NetCore.Domain.Models;
 using NetCore.Domain.Validations.Base;
+using System;
 
 namespace NetCore.Application.Application;
 
@@ -21,8 +22,19 @@ public class ClientApplication : IClientApplication
 
     public async Task<Response> CreateAsync(CreateClientRequest clientRequest)
     {
-        var clientModel = _mapper.Map<ClientModel>(clientRequest);
-        return await _clientService.CreateAsync(clientModel);
+        try
+        {
+            var clientModel = _mapper.Map<ClientModel>(clientRequest);
+
+            return await _clientService.CreateAsync(clientModel);
+        }
+        catch (Exception ex)
+        {
+
+            var response = Reports.Create(ex.Message);
+
+            return Response.Unprocessable(response);
+        }
     }
 
     public Task<Response> DeleteAsync(string clientId)
@@ -51,8 +63,4 @@ public class ClientApplication : IClientApplication
     {
         throw new NotImplementedException();
     }
-
-    
-
-
 }

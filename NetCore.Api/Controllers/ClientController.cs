@@ -19,7 +19,7 @@ namespace NetCore.Api.Controllers
 
         // GET: api/<ClientController>
         /// <summary>
-        /// Get
+        /// Get all client
         /// </summary>
         /// <param name="clientid"></param>
         /// <param name="name"></param>
@@ -34,6 +34,7 @@ namespace NetCore.Api.Controllers
 
             return Ok(response);
         }
+
 
         // GET api/<ClientController>/5
         /// <summary>
@@ -53,8 +54,6 @@ namespace NetCore.Api.Controllers
         }
 
 
-
-
         // POST api/<ClientController>
         /// <summary>
         /// Post
@@ -62,9 +61,9 @@ namespace NetCore.Api.Controllers
         /// <param name="clientRequest"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] CreateClientRequest createClientRequest)
+        public async Task<ActionResult> Post([FromBody] CreateClientRequest clientRequest)
         {
-            var response = await _clientApplication.CreateAsync(createClientRequest);
+            var response = await _clientApplication.CreateAsync(clientRequest);
 
             if (response.Reports.Any())
                 return UnprocessableEntity(response.Reports);
@@ -92,6 +91,7 @@ namespace NetCore.Api.Controllers
 
             return Ok(response);
         }
+
 
         // DELETE api/<ClientController>/5
         /// <summary>

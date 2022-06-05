@@ -28,7 +28,3 @@ OrderItem -> OrderId
 OrderItem2 -> OrderId
 OrderItem3 -> OrderId
 
-
-
-Proxima aula inicio:
-https://www.youtube.com/watch?v=_4uyChyStq0&list=PLTy6F1LNIRHcuFRBO_QQ6oWbOozkNz8fa&index=14
