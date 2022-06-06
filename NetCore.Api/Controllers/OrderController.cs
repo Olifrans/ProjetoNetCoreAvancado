@@ -14,12 +14,20 @@ namespace NetCore.Api.Controllers
             _ordersApplication = ordersApplication;
         }
 
-        // GET: api/<OrderController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+  
+        [HttpGet] 
+        public async Task<ActionResult> Get([FromBody] string orderId, [FromBody] string clientId, [FromBody] string userId)
         {
-            return new string[] { "value1", "value2" };
+            var response = await _ordersApplication.GetListByFilterAsync(orderId, clientId, userId);
+
+            if (response.Reports.Any())
+                return UnprocessableEntity(response.Reports);
+
+            return Ok(response);
         }
+
+
+
 
         // GET api/<OrderController>/5
         [HttpGet("{id}")]

@@ -16,13 +16,18 @@ namespace NetCore.Api.Controllers
         }
 
 
-
-        // GET: api/<UserController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult> Get([FromBody] string userId, [FromBody] string name)
         {
-            return new string[] { "value1", "value2" };
+            var response = await _usersApplication.GetListByFilterAsync(userId, name);
+
+            if (response.Reports.Any())
+                return UnprocessableEntity(response.Reports);
+
+            return Ok(response);
         }
+
+
 
         // GET api/<UserController>/5
         [HttpGet("{id}")]

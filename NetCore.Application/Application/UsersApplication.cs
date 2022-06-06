@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using NetCore.Application.DataContract.Request.Client;
 using NetCore.Application.DataContract.Request.Users;
 using NetCore.Application.DataContract.Response.Users;
 using NetCore.Application.Interfaces;
@@ -14,25 +13,42 @@ public class UsersApplication : IUsersApplication
     private readonly IUsersService _usersService;
     private readonly IMapper _mapper;
 
+    public UsersApplication(IUsersService usersService, IMapper mapper)
+    {
+        _usersService = usersService;
+        _mapper = mapper;
+    }
+
     public Task<Response<AuthResponse>> AuthAsync(AuthRequest auth)
     {
         throw new NotImplementedException();
     }
 
-    public Task<Response> CreateAsync(CreateUsersRequest User)
+    public async Task<Response> CreateAsync(CreateUsersRequest User)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var clientModel = _mapper.Map<ClientModel>(clientRequest);
+
+            return await _clientService.CreateAsync(clientModel);
+        }
+        catch (Exception ex)
+        {
+            var response = Reports.Create(ex.Message);
+
+            return Response.Unprocessable(response);
+        }
     }
 
-    public Task<Response<List<UsersResponse>>> ListByFilterAsync(string userId = null, string name = null)
+    public async Task<Response<List<UsersResponse>>> GetListByFilterAsync(string userId = null, string name = null)
     {
-        throw new NotImplementedException();
+        Response<List<UsersModel>> users = await _usersService.GetListByFilterAsync(userId, name);
+
+        if (users.Reports.Any())
+            return Response.Unprocessable<List<UsersResponse>>(users.Reports);
+
+        var response = _mapper.Map<List<UsersResponse>>(users.Data);
+
+        return Response.Ok(response);
     }
-
-
-    //public async Task<Response> CreateAsync(CreateClientRequest clientRequest)
-    //{
-    //    var clientModel = _mapper.Map<ClientModel>(clientRequest);
-    //    return await _clientService.CreateAsync(clientModel);
-    //}
 }

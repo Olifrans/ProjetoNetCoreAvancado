@@ -16,7 +16,6 @@ using NetCore.Infra.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 //Add-Controllers
-
 builder.Services.AddControllers();
 
 

@@ -10,5 +10,5 @@ public interface IUsersApplication
 
     Task<Response> CreateAsync(CreateUsersRequest User);
 
-    Task<Response<List<UsersResponse>>> ListByFilterAsync(string userId = null, string name = null);
+    Task<Response<List<UsersResponse>>> GetListByFilterAsync(string userId = null, string name = null);
 }

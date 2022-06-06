@@ -31,9 +31,16 @@ public class OrdersApplication : IOrdersApplication
         throw new NotImplementedException();
     }
 
-    public Task<Response<List<OrdersResponse>>> GetListByFilterAsync(string orderId = null, string clientId = null, string userId = null)
+    public async Task<Response<List<OrdersResponse>>> GetListByFilterAsync(string orderId = null, string clientId = null, string userId = null)
     {
-        throw new NotImplementedException();
+        Response<List<OrdersModel>> orders = await _ordersService.GetListByFilterAsync(orderId, clientId, userId);
+
+        if (orders.Reports.Any())
+            return Response.Unprocessable<List<OrdersResponse>>(orders.Reports);
+
+        var response = _mapper.Map<List<OrdersResponse>>(orders.Data);
+
+        return Response.Ok(response);
     }
 
    
