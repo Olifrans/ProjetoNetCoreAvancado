@@ -14,40 +14,60 @@ namespace NetCore.Api.Controllers
             _productApplication = productApplication;
         }
 
-        // GET: api/<ProductController>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "value1", "value2" };
         }
 
-        // GET api/<ProductController>/5
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        //// POST api/<ProductController>
-        //[HttpPost]
-        //public async Task<ActionResult> Post([FromBody] CreateProductRequest productRequest)
-        //{
-        //    var response = await _productApplication.CreateAsync(productRequest);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productRequest"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ActionResult> Post([FromBody] CreateProductRequest productRequest)
+        {
+            var response = await _productApplication.CreateAsync(productRequest);
 
-        //    if (response.Reports.Any())
-        //        return UnprocessableEntity(response.Reports);
+            if (response.Reports.Any())
+                return UnprocessableEntity(response.Reports);
 
-        //    //return Created();
-        //    return Ok(response);
-        //}
+            return Ok(response);
+        }
 
-        // PUT api/<ProductController>/5
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<ProductController>/5
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

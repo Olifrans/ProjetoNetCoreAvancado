@@ -19,3 +19,9 @@ facilitando teste de integração
 Obs: O Dapper não tem unidade de trabalho único (Controle de transações no BD), diferente dos demais.
 Ex:
 https://dapper-tutorial.net/
+
+
+
+
+proxima aula: inicio
+https://www.youtube.com/watch?v=aaGRnFWHR-o&list=PLTy6F1LNIRHcuFRBO_QQ6oWbOozkNz8fa&index=19

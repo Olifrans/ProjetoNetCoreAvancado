@@ -11,14 +11,9 @@ public interface IProductApplication
 
     Task DeleteAsync(string productId);
 
-
     Task<ProductModel> GetByIdAsync(string productId);
-
 
     Task<List<ProductModel>> GetListByFilterAsync(string productId = null, string description = null);
 
-
     Task UpdateAsync(ProductModel product);
-    
-
 }

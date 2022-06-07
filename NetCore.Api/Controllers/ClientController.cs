@@ -2,8 +2,6 @@
 using NetCore.Application.DataContract.Request.Client;
 using NetCore.Application.Interfaces;
 
-
-
 namespace NetCore.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -11,13 +9,13 @@ namespace NetCore.Api.Controllers
     public class ClientController : ControllerBase
     {
         private readonly IClientApplication _clientApplication;
+
         public ClientController(IClientApplication clientApplication)
         {
             _clientApplication = clientApplication;
         }
 
 
-        // GET: api/<ClientController>
         /// <summary>
         /// Get all client
         /// </summary>
@@ -36,7 +34,6 @@ namespace NetCore.Api.Controllers
         }
 
 
-        // GET api/<ClientController>/5
         /// <summary>
         /// Get Id
         /// </summary>
@@ -52,7 +49,6 @@ namespace NetCore.Api.Controllers
 
             return Ok(response);
         }
-
 
         // POST api/<ClientController>
         /// <summary>
@@ -72,9 +68,6 @@ namespace NetCore.Api.Controllers
         }
 
 
-
-
-        // PUT api/<ClientController>/5
         /// <summary>
         /// Put
         /// </summary>
@@ -93,7 +86,6 @@ namespace NetCore.Api.Controllers
         }
 
 
-        // DELETE api/<ClientController>/5
         /// <summary>
         /// Delete
         /// </summary>

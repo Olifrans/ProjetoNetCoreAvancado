@@ -9,13 +9,20 @@ namespace NetCore.Api.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrdersApplication _ordersApplication;
+
         public OrderController(IOrdersApplication ordersApplication)
         {
             _ordersApplication = ordersApplication;
         }
 
-  
-        [HttpGet] 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="clientId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        [HttpGet]
         public async Task<ActionResult> Get([FromBody] string orderId, [FromBody] string clientId, [FromBody] string userId)
         {
             var response = await _ordersApplication.GetListByFilterAsync(orderId, clientId, userId);
@@ -26,9 +33,6 @@ namespace NetCore.Api.Controllers
             return Ok(response);
         }
 
-
-
-
         // GET api/<OrderController>/5
         [HttpGet("{id}")]
         public string Get(int id)
@@ -36,7 +40,11 @@ namespace NetCore.Api.Controllers
             return "value";
         }
 
-        // POST api/<OrderController>
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="ordersRequest"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] CreateOrdersRequest ordersRequest)
         {
@@ -49,13 +57,20 @@ namespace NetCore.Api.Controllers
             return Ok(response);
         }
 
-        // PUT api/<OrderController>/5
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<OrderController>/5
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

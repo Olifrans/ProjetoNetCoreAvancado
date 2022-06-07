@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NetCore.Application.DataContract.Request.Client;
 using NetCore.Application.DataContract.Request.Users;
 using NetCore.Application.Interfaces;
 
@@ -10,12 +9,18 @@ namespace NetCore.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUsersApplication _usersApplication;
+
         public UserController(IUsersApplication usersApplication)
         {
             _usersApplication = usersApplication;
         }
 
-
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult> Get([FromBody] string userId, [FromBody] string name)
         {
@@ -27,9 +32,11 @@ namespace NetCore.Api.Controllers
             return Ok(response);
         }
 
-
-
-        // GET api/<UserController>/5
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public string Get(int id)
         {
@@ -42,20 +49,26 @@ namespace NetCore.Api.Controllers
         {
             var response = await _usersApplication.CreateAsync(usersRequest);
 
-            if(response.Reports.Any())
+            if (response.Reports.Any())
                 return UnprocessableEntity(response.Reports);
 
-            //return Created();
             return Ok(response);
         }
 
-        // PUT api/<UserController>/5
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="value"></param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<UserController>/5
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
